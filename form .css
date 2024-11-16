@@ -1,0 +1,49 @@
+form {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style the labels */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Style the input fields */
+input[type="text"],
+input[type="tel"],   
+
+input[type="email"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+/* Style the buttons */
+input[type="submit"],
+input[type="reset"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color:   
+ #3e8e41;
+}
+
+input[type="reset"]:hover {
+    background-color: #ff4500;
+}
+h2{
+    text-align: center;
+}

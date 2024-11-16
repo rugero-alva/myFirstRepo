@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="file"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .form-wrapper {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .form-wrapper button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-wrapper button:hover {
+            background-color: #0056b3;
+        }
+        input:not(:placeholder-shown) + label {
+            top: -10px; /* Move label up */
+            left: 10px;
+            color: #007bff; /* Change label color */
+            font-size: 12px; /* Reduce font size */
+            font-weight: bold; /* Make label bold */
+        }
+        input[type="submit"], 
+        input[type="reset"] {
+            padding: 10px 20px; 
+            font-size: 16px; 
+            border: none; 
+            border-radius: 4px; /
+            cursor: pointer; 
+            transition: background-color 0.3s, color 0.3s; 
+            margin: 0 10px; 
+        }
+
+        input[type="submit"] {
+            background-color: #007bff; 
+            color: white; 
+        }
+
+        input[type="reset"] {
+            background-color: #dc3545; 
+            color: white; 
+        }
+
+        /* Hover effects */
+        input[type="submit"]:hover {
+            background-color: #0056b3; 
+        }
+
+        input[type="reset"]:hover {
+            background-color: #c82333; 
+        }
+
+        /* Focus state */
+        input[type="submit"]:focus, 
+        input[type="reset"]:focus {
+            outline: none; 
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+        }
+    </style>
+</head>
+<body>
+    <div class="form">
+        <form action="" method="POST"  enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td><label for="h1"><h1><b>Application Form</b></h1></label></td>
+            </tr>
+            <tr>
+                <td>Firstname</td>
+                <td><input type="text" name="firstname" required placeholder="&#8594"></td>
+            </tr>
+            <tr>
+                <td>Lastname</td>
+                <td><input type="text"name="lastname" required placeholder="&#8594"></td>
+            </tr>
+            <tr>
+                <td>Phone number</td>
+                <td><input type="text" name="phonenumber" required placeholder="&#128222"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" name="email" required placeholder="&#x1F4E7"></td>
+            </tr>
+            <tr>
+                <td><label for="upload"><h1>Upload Documents</h1></label></td>
+            </tr>
+            <tr>
+                <td><label for="degree">Degree (PDF)</label></td>
+                <td><input type="file" id="degree" name="degree" accept="application/pdf"required></td>
+            </tr>
+            <tr>
+                <td><label for="degree">Transcript (PDF)</label></td>
+                <td><input type="file" id="degree" name="transcript" accept="application/pdf"required></td>
+            </tr>
+            <tr>
+                <td><label for="degree">Photo (JPEG)</label></td>
+                <td><input type="file" id="degree" name="photo" accept="application/jpeg" required></td>
+            </tr>
+            <tr>
+                <td col="2"><input type="submit" name="submit"> <input type="reset" name="cancel" required></td>
+               
+            </tr>
+        </table>
+    </form>
+    </div>
+</body>
+</html>
+<?php
+if(isset($_POST['submit'])){
+    include('connection.php');
+    $firstname=$_POST['firstname'];
+    $lastname= $_POST['lastname'];
+    $phone = $_POST['phonenumber'];
+    $email = $_POST['email'];
+
+    $degree = $_FILES['degree']['name'];
+    $transcript = $_FILES['transcript']['name'];
+    $photo = $_FILES['photo']['name'];
+
+    // Store uploaded files in the 'uploads' folder
+    move_uploaded_file($_FILES['degree']['tmp_name'], "uploads/" . $degree);
+    move_uploaded_file($_FILES['transcript']['tmp_name'], "uploads/" . $transcript);
+    move_uploaded_file($_FILES['photo']['tmp_name'], "uploads/" . $photo);
+
+    $query= "INSERT into `form`(`Firstname`, `Lasstname`, `Phone number`, `Email`, `degree`, `Transcript`, `photo`) VALUES ('$firstname','$lastname','$phone','$email','$degree','$transcript','$photo')";
+
+    if(mysqli_query($conn,$query)){
+        echo('<script>alert("student data inserted")</script>');
+    }
+    else{
+        echo('<script>alert("error occured in inserting student")</script>');
+    }
+
+}
+
+?>
