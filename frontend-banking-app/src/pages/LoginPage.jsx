@@ -92,8 +92,8 @@ const LoginPage = () => {
             disabled={loading}
           />
         </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit" disabled={loading}>
+        {error && <p className="error-message">{error}</p>}
+        <button type="submit" className="btn" disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>

@@ -123,9 +123,9 @@ const SignupPage = () => {
             disabled={loading}
           />
         </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {message && <p style={{ color: 'green' }}>{message}</p>}
-        <button type="submit" disabled={loading}>
+        {error && <p className="error-message">{error}</p>}
+        {message && <p className="success-message">{message}</p>}
+        <button type="submit" className="btn" disabled={loading}>
           {loading ? 'Signing up...' : 'Sign Up'}
         </button>
       </form>
